@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 @Builder
@@ -31,16 +29,16 @@ public class Trip {
     private Long id;
 
     @Column(name="countries", nullable = false)
-    private String countriesInString;
+    private String countries;
 
-    @Transient
-    List<String> countries = Arrays.asList(countriesInString.split(","));
+//    @Transient
+//    private List<String> countries;
 
     @Column(name="cities", nullable = false)
-    private String citiesInString;
+    private String cities;
 
-    @Transient
-    List<String> cities = Arrays.asList(citiesInString.split(","));
+//    @Transient
+//    private List<String> cities;
 
     @Column(nullable = false)
     private BigDecimal price;

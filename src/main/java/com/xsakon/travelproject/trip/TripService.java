@@ -3,6 +3,7 @@ package com.xsakon.travelproject.trip;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -14,19 +15,31 @@ public class TripService {
         return tripDAO.selectAllTrips();
     }
 
-    public List<Trip> getAllTripsByCountry() {
-        return tripDAO.selectAllTripsByCountry();
+    public List<Trip> getAllTripsByCountry(String country) {
+        return tripDAO.selectAllTripsByCountriesContaining(country);
     }
 
-    public List<Trip> getAllTripsByCity() {
-        return tripDAO.selectAllTripsByCity();
+    public List<Trip> getAllTripsByCity(String city) {
+        return tripDAO.selectAllTripsByCitiesContaining(city);
     }
 
-    public List<Trip> getAllTripsByPrice() {
-        return tripDAO.selectAllTripsByPrice();
+//    public List<Trip> getAllTripsByPrice(BigDecimal price) {
+//        return tripDAO.selectAllTripsByPrice(price);
+//    }
+
+    public List<Trip> getAllTripsByPriceLessThan(BigDecimal price) {
+        return tripDAO.selectAllTripsByPriceLessThan(price);
     }
 
-    public List<Trip> getAllTripsByDuration() {
-        return tripDAO.selectAllTripsByDuration();
+    public List<Trip> getAllTripsByPriceGreaterThan(BigDecimal price) {
+        return tripDAO.selectAllTripsByPriceGreaterThan(price);
+    }
+
+    public List<Trip> getAllTripsByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice) {
+        return tripDAO.selectAllTripsByPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Trip> getAllTripsByDuration(Integer duration) {
+        return tripDAO.selectAllTripsByDuration(duration);
     }
 }
