@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "api/v1/login")
+@RequestMapping(path = "TravelProject/login")
 @AllArgsConstructor
 public class LoginController {
 

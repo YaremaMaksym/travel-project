@@ -36,7 +36,7 @@ public class RegistrationService {
 
     public String sendConfirmationEmail(RegistrationRequest request){
         String token = confirmationTokenService.generateAndSaveTokenForCustomer(request);
-        String link = "http://localhost:8090/api/v1/registration/confirm?token=" + token;
+        String link = "http://localhost:8090/TravelProject/registration/confirm?token=" + token;
         emailSender.send(request.email(), emailSender.buildEmail(request.firstName(), link));
 
         return "A confirmation email was sent";

@@ -1,6 +1,5 @@
 package com.xsakon.travelproject.trip;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/trips")
+@RequestMapping("TravelProject/main")
 @RequiredArgsConstructor
 public class TripController {
     private final TripService tripService;
