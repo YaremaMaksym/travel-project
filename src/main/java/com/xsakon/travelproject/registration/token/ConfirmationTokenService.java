@@ -1,6 +1,7 @@
 package com.xsakon.travelproject.registration.token;
 
-import com.xsakon.travelproject.customer.Customer;
+import com.xsakon.travelproject.customer.CustomerService;
+import com.xsakon.travelproject.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,8 @@ import java.util.UUID;
 public class ConfirmationTokenService {
 
     private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final CustomerService customerService;
 
-    public void saveConfirmationToken(ConfirmationToken token) {
-        confirmationTokenRepository.save(token);
-    }
 
     public Optional<ConfirmationToken> getToken(String token){
         return confirmationTokenRepository.findByToken(token);
@@ -26,15 +25,18 @@ public class ConfirmationTokenService {
         confirmationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
     }
 
-    public ConfirmationToken createTokenForCustomer(Customer customer) {
+    public String generateAndSaveTokenForCustomer(RegistrationRequest request) {
         String token = UUID.randomUUID().toString();
+
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
-                customer
+                customerService.getCustomerByEmail(request.email())
         );
 
-        return confirmationToken;
+        confirmationTokenRepository.save(confirmationToken);
+
+        return token;
     }
 }

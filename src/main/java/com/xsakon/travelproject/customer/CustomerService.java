@@ -3,8 +3,6 @@ package com.xsakon.travelproject.customer;
 import com.xsakon.travelproject.exception.DuplicateResourceException;
 import com.xsakon.travelproject.exception.ResourceNotFoundException;
 import com.xsakon.travelproject.registration.RegistrationRequest;
-import com.xsakon.travelproject.registration.token.ConfirmationToken;
-import com.xsakon.travelproject.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +18,6 @@ public class CustomerService implements UserDetailsService {
     private final CustomerDAO customerDAO;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -34,7 +31,7 @@ public class CustomerService implements UserDetailsService {
                 ));
     }
 
-    public String signUpCustomer(RegistrationRequest request) {
+    public void signUpCustomer(RegistrationRequest request) {
         if (customerDAO.existsCustomerWithEmail(request.email())){
             throw new DuplicateResourceException(
                     "email %s already taken".formatted(request.email())
@@ -51,16 +48,6 @@ public class CustomerService implements UserDetailsService {
                 .build();
 
         customerDAO.insertCustomer(customer);
-
-        return generateNewTokenForCustomer(customer);
-    }
-
-    public String generateNewTokenForCustomer(Customer customer) {
-
-        ConfirmationToken confirmationToken = confirmationTokenService.createTokenForCustomer(customer);
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        return confirmationToken.getToken();
     }
 
     public int enableCustomer(String email) {

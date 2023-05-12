@@ -29,17 +29,17 @@ public class RegistrationService {
             throw new RequestValidationException("email \"%s\" not valid".formatted(request.email()));
         }
 
-        String token = customerService.signUpCustomer(request);
-        String link = "http://localhost:8090/api/v1/registration/confirm?token=" + token;
-        emailSender.send(request.email(), emailSender.buildEmail(request.firstName(), link));
+        customerService.signUpCustomer(request);
 
-        return token;
+        return sendConfirmationEmail(request);
     }
 
-    public void sendEmailAgain(RegistrationRequest request){
-        String token = customerService.signUpCustomer(request);
+    public String sendConfirmationEmail(RegistrationRequest request){
+        String token = confirmationTokenService.generateAndSaveTokenForCustomer(request);
         String link = "http://localhost:8090/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.email(), emailSender.buildEmail(request.firstName(), link));
+
+        return "A confirmation email was sent";
     }
 
     @Transactional
