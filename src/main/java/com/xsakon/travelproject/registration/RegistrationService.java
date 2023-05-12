@@ -23,6 +23,7 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
+    @Transactional
     public String register(RegistrationRequest request) {
         if(!emailValidator.test(request.email())){
             throw new RequestValidationException("email \"%s\" not valid".formatted(request.email()));
