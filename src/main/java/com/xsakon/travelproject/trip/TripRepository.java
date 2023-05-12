@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface TripRepository extends JpaRepository<Trip, Integer> {
-    boolean existsTripById(Integer id);
     List<Trip> findByCountriesContainingIgnoreCase(String country);
     List<Trip> findByCitiesContainingIgnoreCase(String city);
     //List<Trip> findByPrice(BigDecimal price);
