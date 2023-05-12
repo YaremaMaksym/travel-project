@@ -17,20 +17,21 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomerService implements UserDetailsService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerDAO customerDAO;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return customerRepository.findByEmail(email)
+        return customerDAO.selectCustomerByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with email %s not found".formatted(email)
                 ));
     }
 
     public String signUpCustomer(RegistrationRequest request) {
-        if (customerRepository.existsByEmail(request.email())){
+        if (customerDAO.existsCustomerWithEmail(request.email())){
             throw new DuplicateResourceException(
                     "email %s already taken".formatted(request.email())
             );
@@ -45,7 +46,7 @@ public class CustomerService implements UserDetailsService {
                 .password(encodedPassword)
                 .build();
 
-        customerRepository.save(customer);
+        customerDAO.insertCustomer(customer);
 
         return generateNewTokenForCustomer(customer);
     }
@@ -59,6 +60,6 @@ public class CustomerService implements UserDetailsService {
     }
 
     public int enableCustomer(String email) {
-        return customerRepository.enableAppUser(email);
+        return customerDAO.enableCustomerWithEmail(email);
     }
 }
