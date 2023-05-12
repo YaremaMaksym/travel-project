@@ -24,6 +24,10 @@ public class CustomerService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return getCustomerByEmail(email);
+    }
+
+    public Customer getCustomerByEmail(String email){
         return customerDAO.selectCustomerByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with email %s not found".formatted(email)
