@@ -1,4 +1,4 @@
-package com.xsakon.travelproject.security.config;
+package com.xsakon.travelproject.security;
 
 import com.xsakon.travelproject.customer.CustomerService;
 import lombok.AllArgsConstructor;
@@ -7,10 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @AllArgsConstructor
@@ -18,16 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CustomerService customerService;
-
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .anyRequest().permitAll();
-        return http.build();
-    }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
