@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @AllArgsConstructor
 public class CustomerService implements UserDetailsService {
@@ -24,7 +25,7 @@ public class CustomerService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return customerRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "customer with email \"%s\" not found".formatted(email)
+                        "customer with email %s not found".formatted(email)
                 ));
     }
 
