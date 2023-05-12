@@ -16,7 +16,7 @@ public class RegistrationController {
 
     @PostMapping(path = "sendEmail")
     public String sendEmailAgain(@RequestBody RegistrationRequest request) {
-        return registrationService.register(request);
+        return registrationService.sendEmailAgain(request);
     }
 
 
