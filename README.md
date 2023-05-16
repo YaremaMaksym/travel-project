@@ -3,7 +3,7 @@ Backend for team project
 
 It uses:
 
--Spring Security, Spring JPA, SpringMVC
+-Spring Security, Spring Data JPA, SpringMVC
 
 -User (roles can be easily added)
 
