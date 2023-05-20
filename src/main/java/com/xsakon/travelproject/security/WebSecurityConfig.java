@@ -1,6 +1,6 @@
 package com.xsakon.travelproject.security;
 
-import com.xsakon.travelproject.customer.CustomerService;
+import com.xsakon.travelproject.customer.CustomerUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CustomerService customerService;
+    private final CustomerUserDetailsService customerUserDetailsService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -26,7 +26,7 @@ public class WebSecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(customerService);
+        provider.setUserDetailsService(customerUserDetailsService);
         return provider;
     }
 }

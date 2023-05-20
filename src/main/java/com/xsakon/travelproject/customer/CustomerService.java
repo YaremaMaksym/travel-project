@@ -4,25 +4,17 @@ import com.xsakon.travelproject.exception.DuplicateResourceException;
 import com.xsakon.travelproject.exception.ResourceNotFoundException;
 import com.xsakon.travelproject.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @AllArgsConstructor
-public class CustomerService implements UserDetailsService {
+public class CustomerService {
 
     private final CustomerDAO customerDAO;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return getCustomerByEmail(email);
-    }
 
     public Customer getCustomerByEmail(String email){
         return customerDAO.selectCustomerByEmail(email)
