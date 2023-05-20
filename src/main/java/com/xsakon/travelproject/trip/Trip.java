@@ -47,4 +47,7 @@ public class Trip {
 
     @Column(nullable = false)
     private String reference;
+
+    @Column(nullable = false, name = "images")
+    private String imageLink;
 }
