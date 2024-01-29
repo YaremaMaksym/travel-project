@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @AllArgsConstructor
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
