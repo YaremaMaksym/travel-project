@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("TravelProject/main")
+@RequestMapping("api/v1/trips")
 @RequiredArgsConstructor
 public class TripController {
     private final TripService tripService;
