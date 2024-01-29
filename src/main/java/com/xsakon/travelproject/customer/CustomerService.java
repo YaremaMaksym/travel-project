@@ -4,7 +4,7 @@ import com.xsakon.travelproject.exception.DuplicateResourceException;
 import com.xsakon.travelproject.exception.ResourceNotFoundException;
 import com.xsakon.travelproject.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private final CustomerDAO customerDAO;
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public Customer getCustomerByEmail(String email){
         return customerDAO.selectCustomerByEmail(email)
@@ -30,7 +29,7 @@ public class CustomerService {
             );
         }
 
-        String encodedPassword = bCryptPasswordEncoder.encode(request.password());
+        String encodedPassword = passwordEncoder.encode(request.password());
 
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
