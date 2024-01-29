@@ -22,7 +22,7 @@ public class CustomerService {
                 ));
     }
 
-    public void signUpCustomer(RegistrationRequest request) {
+    public void addCustomer(RegistrationRequest request) {
         if (customerDAO.existsCustomerWithEmail(request.email())){
             throw new DuplicateResourceException(
                     "email %s already taken".formatted(request.email())

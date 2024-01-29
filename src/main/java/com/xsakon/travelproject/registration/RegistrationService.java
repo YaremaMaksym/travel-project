@@ -29,7 +29,7 @@ public class RegistrationService {
             throw new RequestValidationException("email \"%s\" not valid".formatted(request.email()));
         }
 
-        customerService.signUpCustomer(request);
+        customerService.addCustomer(request);
 
         return sendConfirmationEmail(request);
     }
